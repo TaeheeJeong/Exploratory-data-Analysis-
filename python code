@@ -1,0 +1,193 @@
+# Exploratory data Analysis  
+# week2 assignment for Data Management and Visualization
+"""
+Created on Mon May 16 15:47:58 2016
+
+@author: taehee Jeong
+"""
+# import libraries
+import pandas as pd
+import numpy as np
+
+#%% Load data
+path='C:/Bigdata/Data Analysis and Interpretation/Dataset/Adolescent Health/'
+data = pd.read_csv(path+'addhealth_pds.csv', low_memory=False)
+
+print (len(data)) #number of observations (rows)
+print (len(data.columns)) # number of variables (columns)
+
+#upper-case all DataFrame column names - place afer code for loading data aboave
+data.columns = map(str.upper, data.columns)
+
+# bug fix for display formats to avoid run time errors - put after code for loading data above
+pd.set_option('display.float_format', lambda x:'%f'%x)
+
+#setting variables you will be working with to numeric
+data['H1WP1'] = data['H1WP1'].convert_objects(convert_numeric=True)
+data['H1WP2'] = data['H1WP2'].convert_objects(convert_numeric=True)
+data['H1WP3'] = data['H1WP3'].convert_objects(convert_numeric=True)
+data['H1WP4'] = data['H1WP4'].convert_objects(convert_numeric=True)
+data['H1WP5'] = data['H1WP5'].convert_objects(convert_numeric=True)
+data['H1WP6'] = data['H1WP6'].convert_objects(convert_numeric=True)
+data['H1WP7'] = data['H1WP7'].convert_objects(convert_numeric=True)
+data['H1WP8'] = data['H1WP8'].convert_objects(convert_numeric=True)
+data['H1WP9'] = data['H1WP9'].convert_objects(convert_numeric=True)
+data['H1WP10'] = data['H1WP10'].convert_objects(convert_numeric=True)
+data['H1WP11'] = data['H1WP11'].convert_objects(convert_numeric=True)
+data['H1WP12'] = data['H1WP12'].convert_objects(convert_numeric=True)
+data['H1WP13'] = data['H1WP13'].convert_objects(convert_numeric=True)
+data['H1WP14'] = data['H1WP14'].convert_objects(convert_numeric=True)
+data['H1WP15'] = data['H1WP15'].convert_objects(convert_numeric=True)
+data['H1WP16'] = data['H1WP16'].convert_objects(convert_numeric=True)
+data['H1WP17A'] = data['H1WP17A'].convert_objects(convert_numeric=True)
+data['H1WP17B'] = data['H1WP17B'].convert_objects(convert_numeric=True)
+data['H1WP17C'] = data['H1WP17C'].convert_objects(convert_numeric=True)
+data['H1WP17D'] = data['H1WP17D'].convert_objects(convert_numeric=True)
+data['H1WP17E'] = data['H1WP17E'].convert_objects(convert_numeric=True)
+data['H1WP17F'] = data['H1WP17F'].convert_objects(convert_numeric=True)
+data['H1WP17G'] = data['H1WP17G'].convert_objects(convert_numeric=True)
+data['H1WP17H'] = data['H1WP17H'].convert_objects(convert_numeric=True)
+data['H1WP17I'] = data['H1WP17I'].convert_objects(convert_numeric=True)
+data['H1WP17J'] = data['H1WP17J'].convert_objects(convert_numeric=True)
+data['H1WP17K'] = data['H1WP17K'].convert_objects(convert_numeric=True)
+data['H1WP18A'] = data['H1WP18A'].convert_objects(convert_numeric=True)
+data['H1WP18B'] = data['H1WP18B'].convert_objects(convert_numeric=True)
+data['H1WP18C'] = data['H1WP18C'].convert_objects(convert_numeric=True)
+data['H1WP18D'] = data['H1WP18D'].convert_objects(convert_numeric=True)
+data['H1WP18E'] = data['H1WP18E'].convert_objects(convert_numeric=True)
+data['H1WP18F'] = data['H1WP18F'].convert_objects(convert_numeric=True)
+data['H1WP18G'] = data['H1WP18G'].convert_objects(convert_numeric=True)
+data['H1WP18H'] = data['H1WP18H'].convert_objects(convert_numeric=True)
+data['H1WP18I'] = data['H1WP18I'].convert_objects(convert_numeric=True)
+data['H1WP18J'] = data['H1WP18J'].convert_objects(convert_numeric=True)
+data['H1WP18K'] = data['H1WP18K'].convert_objects(convert_numeric=True)
+
+#%% counts and percentages (i.e. frequency distributions) for each variable
+features=['H1WP1','H1WP2','H1WP3','H1WP4','H1WP5','H1WP6','H1WP7','H1WP8',
+          'H1WP9','H1WP10','H1WP11','H1WP12','H1WP13','H1WP14','H1WP15','H1WP16',
+          'H1WP17A','H1WP17B','H1WP17C','H1WP17D','H1WP17E','H1WP17F','H1WP17G',
+          'H1WP17H','H1WP17I','H1WP17J','H1WP17K',
+          'H1WP18A','H1WP18B','H1WP18C','H1WP18D','H1WP18E','H1WP18F','H1WP18G',
+          'H1WP18H','H1WP18I','H1WP18J','H1WP18K']
+titles=[
+'1. Do your parents let you make your own decisions about the time you must be home on weekend nights?', 
+'2. Do your parents let you make your own decisions about the people you hang around with?', 
+'3. Do your parents let you make your own decisions about what you wear?', 
+'4. Do your parents let you make your own decisions about how much television you watch?', 
+'5. Do your parents let you make your own decisions about which television programs you watch?', 
+'6. Do your parents let you make your own decisions about what time you go to bed on week nights?', 
+'7. Do your parents let you make your own decisions about what you eat?', 
+'8. On how many of the past 7 days was at least one of your parents in the room with you while you ate your evening meal?', 
+#If MOM, ask Q.9-12. 
+'9. How close do you feel to your {MOTHER/ADOPTIVE MOTHER/ STEPMOTHER/ FOSTER MOTHER/etc.}?', 
+'10. How much do you think she cares about you?', 
+'11. On a scale of 1 to 5, where 1 is low and 5 is high, how disappointed would she be if you did not graduate from college?', 
+'12. On a scale of 1 to 5, where 1 is low and 5 is high, how disappointed would she be if you did not graduate from high school?', 
+#If DAD, ask Q.13-16. 
+'13. How close do you feel to your {FATHER/ADOPTIVE FATHER/STEPFATHER/FOSTER FATHER/etc.}?', 
+'14. How much do you think he cares about you?', 
+'15. On a scale of 1 to 5, where 1 is low and 5 is high, how disappointed would he be if you did not graduate from college?', 
+'16. On a scale of 1 to 5, where 1 is low and 5 is high, how disappointed would he be if you did not graduate from high school?', 
+#If MOM, ask Q.17.
+'17. Which of the things listed on this card have you done with your {MOTHER/ADOPTIVE MOTHER/STEPMOTHER/FOSTER MOTHER/etc.} in the past 4 weeks?',
+'17A. gone shopping', 
+'17B. played a sport', 
+'17C. gone to a religious service or church-related event', 
+'17D. talked about someone you’re dating, or a party you went to', 
+'17E. gone to a movie, play, museum, concert, or sports event', 
+'17F. had a talk about a personal problem you were having', 
+'17G. had a serious argument about your behavior', 
+'17H. talked about your school work or grades', 
+'17I. worked on a project for school', 
+'17J. talked about other things you’re doing in school', 
+'17K. none',
+
+#If DAD, ask Q.18.
+'18. Which of these things have you done with your {FATHER/ADOPTIVE FATHER/ STEPFATHER/FOSTER FATHER/etc.} in the past 4 weeks?',
+'18A. gone shopping', 
+'18B. played a sport', 
+'18C. gone to a religious service or church-related event', 
+'18D. talked about someone you’re dating, or a party you went to', 
+'18E. gone to a movie, play, museum, concert, or sports event', 
+'18F. had a talk about a personal problem you were having', 
+'18G. had a serious argument about your behavior', 
+'18H. talked about your school work or grades', 
+'18I. worked on a project for school', 
+'18J. talked about other things you’re doing in school', 
+'18K. none']
+
+for i in range(len(titles)):
+    print i
+    
+# counts for each variable and DESCRIPTIVE TITLES 
+for i in range(len(titles)):
+    if i <=15:
+        print titles[i]
+        #print features[i]
+        print data[features[i]].value_counts(sort=False)
+    elif i==16:
+        print titles[i]
+    elif i>=17 and i<=27:
+        print titles[i]
+        #print features[i-1]
+        print data[features[i-1]].value_counts(sort=False)
+    elif i==28:
+        print titles[i]
+    else:
+        print titles[i]
+        #print features[i-2]
+        print data[features[i-2]].value_counts(sort=False)
+
+        
+# percentages (i.e. frequency distributions) for each variable 
+#        and DESCRIPTIVE TITLES
+for i in range(len(titles)):
+    if i <=15:
+        print titles[i]
+        #print features[i]
+        #print data[features[i]].value_counts(sort=False, normalize=True)
+        print data.groupby(features[i]).size() * 100 / len(data)
+    elif i==16:
+        print titles[i]
+    elif i>=17 and i<=27:
+        print titles[i]
+        #print features[i-1]
+        #print data[features[i-1]].value_counts(sort=False, normalize=True)
+        print data.groupby(features[i-1]).size() * 100 / len(data)
+    elif i==28:
+        print titles[i]
+    else:
+        print titles[i]
+        #print features[i-2]
+        #print data[features[i-2]].value_counts(sort=False, normalize=True)
+        print data.groupby(features[i-2]).size() * 100 / len(data)
+
+#%% subset data 
+# For each question, response is grouped by race
+# For example, the following question
+print '12.how disappointed would she be if you did not graduate from high school?'
+print 'On a scale of 1 to 5, where 1 is low and 5 is high'
+
+
+#subset data by race
+print 'white'
+white=data[list(data['H1GI6A']==1) and list(data['H1GI9']==1)]
+print white.groupby('H1WP12').size() * 100 / len(white)
+
+print 'Black or African American'
+black=data[list(data['H1GI6B']==1) and list(data['H1GI9']==2)]
+print black.groupby('H1WP12').size() * 100 / len(black)
+
+print 'American Indian or Native American'
+namer=data[list(data['H1GI6C']==1) and list(data['H1GI9']==3)]
+print namer.groupby('H1WP12').size() * 100 / len(namer)
+
+print 'Asian or Pacific Islander '
+asian=data[list(data['H1GI6D']==1) and list(data['H1GI9']==4)]
+print asian.groupby('H1WP12').size() * 100 / len(asian)
+
+
+print 'Other'
+other=data[list(data['H1GI6E']==1) and list(data['H1GI9']==5)]
+print other.groupby('H1WP12').size() * 100 / len(other)
+
