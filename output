@@ -1,0 +1,80 @@
+1. Do your parents let you make your own decisions about the time you must be home on weekend nights?
+H1WP1
+0   65.559656
+1   32.118696
+6    0.107626
+7    2.014145
+8    0.184502
+9    0.015375
+
+2. Do your parents let you make your own decisions about the people you hang around with?
+H1WP2
+0   14.483395
+1   83.333333
+6    0.046125
+7    2.014145
+8    0.107626
+9    0.015375
+
+12. On a scale of 1 to 5, where 1 is low and 5 is high, how disappointed would she be if you did not graduate from high school?
+H1WP12
+1    3.305658
+2    1.014760
+3    2.444649
+4    4.735547
+5   82.210947
+6    0.046125
+7    5.688807
+8    0.476630
+9    0.076876
+
+white
+H1WP12
+1    2.843160
+2    1.048707
+3    2.097413
+4    4.637614
+5   83.034258
+6    0.069914
+7    5.989280
+8    0.209741
+9    0.069914
+dtype: float64
+Black or African American
+H1WP12
+1    4.996877
+2    0.936914
+3    2.935665
+4    3.935041
+5   81.136790
+7    4.871955
+8    1.186758
+dtype: float64
+American Indian or Native American
+H1WP12
+3    2.739726
+4   12.328767
+5   73.972603
+7   10.958904
+dtype: float64
+Asian or Pacific Islander 
+H1WP12
+1    1.694915
+2    0.423729
+3    5.508475
+4    8.898305
+5   78.389831
+7    4.661017
+9    0.423729
+dtype: float64
+Other
+H1WP12
+1    3.030303
+2    1.683502
+3    2.356902
+4    5.387205
+5   81.481481
+7    4.713805
+8    1.010101
+9    0.336700
+dtype: float64
